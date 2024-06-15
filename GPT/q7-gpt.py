@@ -1,27 +1,32 @@
-
-# Function to find the maximum number of points that Alex can earn
-def max_points(n, sequence):
-    # Create a list with the count of each element in the sequence
-    count = [0]*100005
-    for i in sequence:
-        count[i] += 1
+def max_points(n, arr):
+    # Create a frequency mapping of the numbers in the array
+    freq = {}
+    for num in arr:
+        if num in freq:
+            freq[num] += 1
+        else:
+            freq[num] = 1
     
-    # Create a list to store the maximum points for each element
-    dp = [0]*100005
-    dp[0] = 0
-    dp[1] = count[1]
-
-    # Iterate through the sequence to calculate the maximum points
-    for i in range(2, max(sequence)+1):
-        dp[i] = max(dp[i-1], dp[i-2] + i*count[i])
+    # Initialize the maximum points
+    max_points = [0] * (max(arr) + 1)
     
-    # Print the maximum points that Alex can earn
-    return dp[max(sequence)]
+    # Calculate the maximum points for each number
+    for i in range(max(arr) + 1):
+        if i == 0:
+            max_points[i] = 0
+        elif i == 1:
+            max_points[i] = freq.get(1, 0)
+        else:
+            max_points[i] = max(max_points[i-1], max_points[i-2] + freq.get(i, 0) * i)
+    
+    return max_points[max(arr)]
 
-# Example inputs
-print(max_points(2, [1, 2]))  # Output: 2
-print(max_points(3, [1, 2, 3]))  # Output: 4
-print(max_points(9, [1, 2, 1, 3, 2, 2, 2, 2, 3]))  # Output: 10
+# Reading input from user
+n = int(input())
+arr = list(map(int, input().split()))
 
-# WA
-# https://codeforces.com/problemset/submission/455/261452526
+# Calling the function and printing the result
+print(max_points(n, arr))
+
+# AC
+# https://codeforces.com/problemset/submission/455/263073947

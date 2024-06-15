@@ -1,26 +1,25 @@
-
-# Function to abbreviate words with length more than 10 characters
-def abbreviate_words(n, words):
+def replace_long_words(n, words):
     result = []
     for word in words:
         if len(word) > 10:
-            abbreviation = word[0] + str(len(word) - 2) + word[-1]
+            abbreviation = word[0] + str(len(word)-2) + word[-1]
             result.append(abbreviation)
         else:
             result.append(word)
     return result
 
-# Input
-n = int(input("Enter the number of words: "))  # The first line contains an integer n
+# Read the input n
+n = int(input())
+
+# Read the n words
 words = []
-for i in range(n):
-    word = input("Enter word #" + str(i+1) + ": ")  # Each of the following n lines contains one word
+for _ in range(n):
+    word = input()
     words.append(word)
 
-# Output
-result = abbreviate_words(n, words)
-for res in result:
-    print(res)
+# Call the replace_long_words function and print the result
+for word in replace_long_words(n, words):
+    print(word)
 
-# WA
-# https://codeforces.com/problemset/submission/71/261452481
+# AC
+# https://codeforces.com/problemset/submission/71/263073079
